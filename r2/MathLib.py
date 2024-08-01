@@ -17,7 +17,6 @@ def ScaleMatrix(x, y, z):
     ]
 
 def rotationmatrix(pitch, yaw, roll):
-    # Convertir a radianes
     pitch = math.radians(pitch)
     yaw = math.radians(yaw)
     roll = math.radians(roll)
@@ -52,3 +51,22 @@ def matrix_multiply(A, B):
             for k in range(len(B)):
                 result[i][j] += A[i][k] * B[k][j]
     return result
+
+def matrix_inverse(matrix):
+        n = len(matrix)
+        identity = [[1 if i == j else 0 for i in range(n)] for j in range(n)]
+        inverse = [[matrix[i][j] for j in range(n)] for i in range(n)]
+        
+        for i in range(n):
+            factor = inverse[i][i]
+            for j in range(n):
+                inverse[i][j] /= factor
+                identity[i][j] /= factor
+            for k in range(n):
+                if k != i:
+                    factor = inverse[k][i]
+                    for j in range(n):
+                        inverse[k][j] -= factor * inverse[i][j]
+                        identity[k][j] -= factor * identity[i][j]
+        
+        return identity

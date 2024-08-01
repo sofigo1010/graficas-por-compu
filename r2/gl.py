@@ -1,4 +1,6 @@
 import struct
+from camera import *
+
 
 def char(c):
     # 1 byte
@@ -21,6 +23,11 @@ class Renderer(object):
     def __init__(self, screen):
         self.screen = screen
         _, _, self.width, self.height = screen.get_rect()
+        
+        self.camera = Camera()
+        self.glViewport(0,0,self.width, self.height)
+        self.glProjection()
+        
         self.glColor(1,1,1)
         self.glClearColor(0,0,0)
         self.glClear()
@@ -30,6 +37,32 @@ class Renderer(object):
         self.primitiveType = POINTS
 
         self.models = []
+        
+    def glViewport(self, x, y, width, height):
+        self.vpX = int(x)
+        self.vpY = int(y)
+        self.vpWidth = width
+        self.vpHeight = height
+        
+        self.viewportMatrix = [
+            [width / 2, 0, 0, x + width / 2],
+            [0, height / 2, 0, y + height / 2],
+            [0, 0, 0.5, 0.5],
+            [0, 0, 0, 1]
+        ]
+        
+    def glProjection(self, n = 0.1, f = 1000, fov = 60):
+        aspectRatio = self.vpWidth / self.vpHeight
+        fov *= math.pi / 180 
+        t = math.tan(fov / 2) * n
+        r = t * aspectRatio
+
+        self.projectionMatrix = [
+            [n / r, 0, 0, 0],
+            [0, n / t, 0, 0],
+            [0, 0, -(f + n) / (f - n), -(2 * f * n) / (f - n)],
+            [0, 0, -1, 0]
+        ]
         
     def glColor(self, r,g,b):
         r= min(1, max(0,r))
@@ -202,11 +235,11 @@ class Renderer(object):
                 # pasar las matrices necesaas para usarlas
                 # dentro del shader
                 if self.vertexShader:
-                    v0 = self.vertexShader(v0, modelMatrix = mMat)
-                    v1 = self.vertexShader(v1, modelMatrix = mMat)
-                    v2 = self.vertexShader(v2, modelMatrix = mMat)
+                    v0 = self.vertexShader(v0, modelMatrix = mMat, viewMatrix = self.camera.GetViewMatrix(), projectionMatrix = self.projectionMatrix, viewportMatrix = self.viewportMatrix)
+                    v1 = self.vertexShader(v1, modelMatrix = mMat, viewMatrix = self.camera.GetViewMatrix(), projectionMatrix = self.projectionMatrix, viewportMatrix = self.viewportMatrix)
+                    v2 = self.vertexShader(v2, modelMatrix = mMat, viewMatrix = self.camera.GetViewMatrix(), projectionMatrix = self.projectionMatrix, viewportMatrix = self.viewportMatrix)
                     if vertCount == 4:
-                        v3 = self.vertexShader(v3, modelMatrix = mMat)
+                        v3 = self.vertexShader(v3, modelMatrix = mMat, viewMatrix = self.camera.GetViewMatrix(), projectionMatrix = self.projectionMatrix, viewportMatrix = self.viewportMatrix)
 
                 vertexBuffer.append(v0)
                 vertexBuffer.append(v1)
