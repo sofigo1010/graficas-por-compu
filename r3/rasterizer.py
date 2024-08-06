@@ -1,26 +1,37 @@
 import pygame
 from pygame.locals import *
-from gl import LINES, POINTS, Renderer
+from gl import LINES, POINTS, TRIANGLES, Renderer
 from model import Model
-from shaders import vertexShader
+from shaders import fragmentShader, vertexShader
 
-width = 960
-height = 540
+width = 512
+height = 512
+
 
 screen = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
 rend = Renderer(screen) 
 rend.vertexShader = vertexShader
-
-modelo1 = Model("LowPolyToilet.obj")
-modelo1.translate[2] = -10
+rend.fragmentShader = fragmentShader
+modelo1 = Model("models/model.obj")
+modelo1.LoadTexture("textures/model.bmp")
+# modelo1.translate[2] = -10
+# modelo1.translate[0] = -2
+# modelo1.scale[0] = 2
+# modelo1.scale[1] = 2
+# modelo1.scale[2] = 2
 modelo1.translate[0] = -2
-
-modelo1.scale[0] = 2
-modelo1.scale[1] = 2
-modelo1.scale[2] = 2
-
+modelo1.translate[1] = -1
+modelo1.translate[2] = -10 
+modelo1.scale[0] = 5
+modelo1.scale[1] = 5
 rend.models.append(modelo1)
+
+
+
+puntoA = [50, 50, 0]
+puntoB = [250, 500, 0]
+puntoC = [500, 50, 0]
 
 rend.glColor(1, 1, 1)
 
@@ -45,6 +56,8 @@ while isRunning:
                 rend.primitiveType = POINTS
             elif event.key == pygame.K_2:
                 rend.primitiveType = LINES
+            elif event.key == pygame.K_3:
+                rend.primitiveType = TRIANGLES
             elif event.key == pygame.K_a:
                 rend.camera.rotate[1] -= 5  
             elif event.key == pygame.K_d:
@@ -56,7 +69,7 @@ while isRunning:
 
     rend.glClear()
     rend.glRender()
-
+    # rend.glTriangle(puntoA, puntoB, puntoC)
     pygame.display.flip()
     rend.glGenerateFramebuffer("render.bmp")
     clock.tick(60)
