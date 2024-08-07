@@ -13,8 +13,8 @@ clock = pygame.time.Clock()
 rend = Renderer(screen) 
 rend.vertexShader = vertexShader
 rend.fragmentShader = fragmentShader
-modelo1 = Model("models/model.obj")
-modelo1.LoadTexture("textures/model.bmp")
+modelo1 = Model("models\CatMac.obj")
+modelo1.LoadTexture("textures\CatMac_C.bmp")
 # modelo1.translate[2] = -10
 # modelo1.translate[0] = -2
 # modelo1.scale[0] = 2
@@ -23,8 +23,9 @@ modelo1.LoadTexture("textures/model.bmp")
 modelo1.translate[0] = -2
 modelo1.translate[1] = -1
 modelo1.translate[2] = -10 
-modelo1.scale[0] = 5
-modelo1.scale[1] = 5
+modelo1.scale[0] = 10
+modelo1.scale[1] = 10
+modelo1.scale[2] = 10
 rend.models.append(modelo1)
 
 
