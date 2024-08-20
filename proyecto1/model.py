@@ -11,14 +11,14 @@ class Model(object):
         self.translate = [0,0,0]
         self.rotate = [0,0,0]
         self.scale = [1,1,1]
-        self.texture = None
+        self.textureList = [ ]
         
         self.vertexShader = None
         self.fragmentShader = None
         
         
     def LoadTexture(self, filename):
-        self.texture = Texture(filename)
+        self.textureList.append(Texture(filename))
         
     def GetModelMatrix(self):
         translateMat = TranslationMatrix(self.translate[0],

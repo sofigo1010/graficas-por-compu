@@ -1,7 +1,7 @@
 import struct
 from camera import *
 import random
-
+from texture import *
 
 def char(c):
     # 1 byte
@@ -36,12 +36,32 @@ class Renderer(object):
         self.activeVertexShader = None
         self.activeFragmentShader = None
         self.activeModelMatrix = None
-        self.activeTexture = None
+        self.activeTextureList = None
         self.primitiveType = TRIANGLES
         self.vertexOffset = 1
         self.directionalLight = [1,0,0]
 
         self.models = []
+        
+        self.background = None
+        
+    def glLoadBackground(self, filename):
+        self.background = Texture(filename)
+    
+    def glClearBackground(self):
+        if self.background == None:
+            return
+
+        for x in range(self.vpX, self.vpX + self.vpWidth + 1):
+            for y in range(self.vpY, self.vpY + self.vpHeight + 1):
+                tU = (x - self.vpX) / self.vpWidth
+                tV = (y - self.vpY) / self.vpHeight
+
+                texColor = self.background.getColor(tU, tV)
+
+                if texColor:
+                    self.glPoint(x, y, texColor)
+    
         
     def glViewport(self, x, y, width, height):
         self.vpX = int(x)
@@ -227,7 +247,7 @@ class Renderer(object):
             self.activeModelMatrix = model.GetModelMatrix()
 
             # Guardar la referencia a la textura de este modelo
-            self.activeTexture = model.texture
+            self.activeTextureList = model.textureList
             self.activeVertexShader = model.vertexShader
             self.activeFragmentShader = model.fragmentShader
 
@@ -399,7 +419,9 @@ class Renderer(object):
         # en el Zbuffer, este punto está mas lejos y no se dibuja
         if z >= self.zbuffer[x][y]:
             return
-        
+        # Si el valor en z para este punto no está entre -1 y 1, se puede descartar
+        if z < -1 or z > 1:
+            return
         self.zbuffer[x][y] = z
 
 		# Si contamos un Fragment Shader, obtener el color de ah�
@@ -410,12 +432,15 @@ class Renderer(object):
             verts = (A, B, C)
             color = self.activeFragmentShader(verts = verts,
 										bCoords = bCoords,
-                                        texture = self.activeTexture, 
+                                        textureList = self.activeTextureList, 
                                         dirLight = self.directionalLight,
                                         camMatrix = self.camera.GetViewMatrix(),
                                         modelMatrix = self.activeModelMatrix)
+            
+        if color != None:
+            self.glPoint(x, y, color)
 
-        self.glPoint(x, y, color)
+        
 
 
     def glTriangle_bc(self, A, B, C):

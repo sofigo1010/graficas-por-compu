@@ -11,38 +11,49 @@ height = 540
 screen = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
 rend = Renderer(screen) 
+rend.glLoadBackground("textures\ok.bmp")
 rend.vertexShader = vertexShader
 rend.fragmentShader = fragmentShader
-modelo1 = Model("models\CatMac.obj")
-modelo1.LoadTexture("textures\CatMac_C.bmp")
+
+modelo1 = Model("models\squidward.obj")
+modelo1.LoadTexture("textures\squidward.bmp")
 modelo1.vertexShader= vertexShader
-modelo1.fragmentShader=stripeDistortionShader
+modelo1.fragmentShader=fragmentShader
 modelo1.translate[2] = -5
-modelo1.translate[0] = -2
-modelo1.translate[1] = -2
-modelo1.scale[0] = 5
-modelo1.scale[1] = 5
-modelo1.scale[2] = 5
+#modelo1.translate[1] = -2
+modelo1.scale[0] = 1
+modelo1.scale[1] = 1
+modelo1.scale[2] = 1
+#modelo1.rotate[0] = 90
 
-modelo2 = Model("models\CatMac.obj")
-modelo2.LoadTexture("textures\CatMac_C.bmp")
+#modelo1.fragmentShader=whitengrayShader
+# modelo1.translate[2] = -5
+# modelo1.translate[0] = -2
+# modelo1.translate[1] = -2
+# modelo1.scale[0] = 5
+# modelo1.scale[1] = 5
+# modelo1.scale[2] = 5
+
+modelo2 = Model("models\Puss.obj")
+modelo2.LoadTexture("textures/t_puss_c.bmp")
 modelo2.vertexShader= vertexShader
-modelo2.fragmentShader=whitengrayShader
+modelo2.fragmentShader=lineShader
 modelo2.translate[2] = -5
-modelo2.translate[0] = 0
-modelo2.scale[0] = 5
-modelo2.scale[1] = 5
-modelo2.scale[2] = 5
+modelo2.translate[0] = -2
+modelo2.translate[1] = -2
+modelo2.scale[0] = 0.25
+modelo2.scale[1] = 0.25
+modelo2.scale[2] = 0.25
 
-modelo3 = Model("models\CatMac.obj")
-modelo3.LoadTexture("textures\CatMac_C.bmp")
+modelo3 = Model("models\Donkey.obj")
+modelo3.LoadTexture("textures/t_Donkey_c.bmp")
 modelo3.vertexShader= vertexShader
 modelo3.fragmentShader=infraredShader
 modelo3.translate[2] = -5
 modelo3.translate[0] = 2
-modelo3.scale[0] = 5
-modelo3.scale[1] = 5
-modelo3.scale[2] = 5
+modelo3.scale[0] = 0.25
+modelo3.scale[1] = 0.25
+modelo3.scale[2] = 0.25
 modelo3.translate[1] = -1
 
 rend.models.append(modelo1)
@@ -90,6 +101,7 @@ while isRunning:
                 rend.camera.rotate[2] += 5  
 
     rend.glClear()
+    rend.glClearBackground()
     rend.glRender()
     # rend.glTriangle(puntoA, puntoB, puntoC)
     pygame.display.flip()
