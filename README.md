@@ -1,1 +1,0 @@
-# graficas-por-compu
