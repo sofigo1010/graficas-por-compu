@@ -424,18 +424,19 @@ class Renderer(object):
             return
         self.zbuffer[x][y] = z
 
-		# Si contamos un Fragment Shader, obtener el color de ah�
         color = self.currColor
 		
         if self.activeFragmentShader != None:
-			# Mandar los par�metros necesarios al shader
             verts = (A, B, C)
-            color = self.activeFragmentShader(verts = verts,
-										bCoords = bCoords,
-                                        textureList = self.activeTextureList, 
-                                        dirLight = self.directionalLight,
-                                        camMatrix = self.camera.GetViewMatrix(),
-                                        modelMatrix = self.activeModelMatrix)
+            color = self.activeFragmentShader(
+                                            verts=verts,
+                                            bCoords=bCoords,
+                                            textureList=self.activeTextureList,
+                                            dirLight=self.directionalLight,
+                                            camMatrix=self.camera.GetViewMatrix(),
+                                            modelMatrix=self.activeModelMatrix,
+                                            background=self.background  
+                                        )
             
         if color != None:
             self.glPoint(x, y, color)

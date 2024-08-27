@@ -18,48 +18,58 @@ rend.fragmentShader = fragmentShader
 modelo1 = Model("models\squidward.obj")
 modelo1.LoadTexture("textures\squidward.bmp")
 modelo1.vertexShader= vertexShader
-modelo1.fragmentShader=fragmentShader
+modelo1.fragmentShader=scamShader
 modelo1.translate[2] = -5
-#modelo1.translate[1] = -2
-modelo1.scale[0] = 1
-modelo1.scale[1] = 1
-modelo1.scale[2] = 1
-#modelo1.rotate[0] = 90
+modelo1.translate[0] = -0.5
+modelo1.scale[0] = 0.5
+modelo1.scale[1] = 0.5
+modelo1.scale[2] = 0.5
 
-#modelo1.fragmentShader=whitengrayShader
-# modelo1.translate[2] = -5
-# modelo1.translate[0] = -2
-# modelo1.translate[1] = -2
-# modelo1.scale[0] = 5
-# modelo1.scale[1] = 5
-# modelo1.scale[2] = 5
 
 modelo2 = Model("models\Puss.obj")
 modelo2.LoadTexture("textures/t_puss_c.bmp")
 modelo2.vertexShader= vertexShader
-modelo2.fragmentShader=lineShader
+modelo2.fragmentShader=pixelateShader
 modelo2.translate[2] = -5
-modelo2.translate[0] = -2
+modelo2.translate[0] = -4
 modelo2.translate[1] = -2
 modelo2.scale[0] = 0.25
 modelo2.scale[1] = 0.25
 modelo2.scale[2] = 0.25
+modelo2.rotate[1] = 65
 
 modelo3 = Model("models\Donkey.obj")
 modelo3.LoadTexture("textures/t_Donkey_c.bmp")
 modelo3.vertexShader= vertexShader
-modelo3.fragmentShader=infraredShader
+modelo3.fragmentShader=darkerBackgroundShader
+modelo3.translate[1] = -2
 modelo3.translate[2] = -5
-modelo3.translate[0] = 2
+modelo3.translate[0] = 4
 modelo3.scale[0] = 0.25
 modelo3.scale[1] = 0.25
 modelo3.scale[2] = 0.25
-modelo3.translate[1] = -1
+modelo3.rotate[1] = -65
+
+modelo4 = Model("models\Chair and Table.obj")
+modelo4.LoadTexture("textures\Chair-and-table_Base_color.bmp")
+modelo4.vertexShader= vertexShader
+modelo4.fragmentShader=distortionShader
+modelo4.translate[2] = -6
+modelo4.translate[0] = 0.25
+modelo4.translate[1] = -2.70
+modelo4.scale[0] = 30
+modelo4.scale[1] = 30
+modelo4.scale[2] = 30
+
+
+
+
+
 
 rend.models.append(modelo1)
 rend.models.append(modelo2)
 rend.models.append(modelo3)
-
+rend.models.append(modelo4)
 
 
 puntoA = [50, 50, 0]
