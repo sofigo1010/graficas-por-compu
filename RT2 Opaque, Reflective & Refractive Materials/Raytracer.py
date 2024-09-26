@@ -19,7 +19,7 @@ space = Material(texture = Texture("textures/space.bmp"), spec = 512, Ks = 0.3, 
 marble = Material(texture = Texture("textures/whiteMarble.bmp"), spec = 512, Ks = 0.3, diffuse = [1.0, 1.0, 1.0], matType = OPAQUE)
 RED = Material(texture = Texture("textures/red.bmp"), spec = 512, Ks = 1.8, ior = 15, matType = REFLECTIVE)
 diamondReflective = Material(diffuse = [0.8, 0.8, 1.0], spec = 512, Ks = 0.9, matType = REFLECTIVE)
-bluega = Material(diffuse = [0.5, 0.5, 1.0], spec = 128, Ks = 0.2, ior = 0.5, matType = TRANSPARENT)
+bluega = Material(diffuse = [0.5, 0.5, 1.0], spec = 128, Ks = 0.2, ior = 1.5, matType = TRANSPARENT)
 yellowGlass = Material(diffuse = [1.0, 1.0, 0.0], spec = 128, Ks = 0.2, ior = 2.5, matType = TRANSPARENT)
 
 rt.Lights.append(DirectionalLight(direction = [-1, -1, -1], intensity = 0.8))
