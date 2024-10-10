@@ -77,7 +77,6 @@ class Plane(Shape):
         )
 
 
-
 class Disk(Plane):
     def __init__(self, position, normal, radius, material):
         super().__init__(position, normal, material)
