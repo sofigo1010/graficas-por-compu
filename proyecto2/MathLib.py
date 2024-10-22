@@ -114,3 +114,13 @@ def reflectVector(normal, direction):
     norm = math.sqrt(sum([reflect[i]**2 for i in range(3)]))
     reflect = [reflect[i] / norm for i in range(3)]
     return reflect
+
+def normVector(v):
+    norm = math.sqrt(sum([v[i] ** 2 for i in range(3)]))
+    if norm == 0:
+        return [0, 0, 0]
+    return [v[i] / norm for i in range(3)]
+
+
+def productoPunto(v1, v2):
+    return sum([v1[i] * v2[i] for i in range(3)])

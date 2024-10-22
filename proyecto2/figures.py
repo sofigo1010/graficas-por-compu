@@ -1,5 +1,6 @@
 from math import*
 import math
+from MathLib import normVector, productoPunto
 from intercept import *
 
 class Shape(object):
@@ -49,32 +50,45 @@ class Sphere(Shape):
         )
 
 class Plane(Shape):
-    def __init__(self, position, normal, material): 
+    def __init__(self, position, normal, material):
         super().__init__(position, material)
-        self.normal = [n / math.sqrt(sum(x**2 for x in normal)) for n in normal]
+        self.normal = normVector(normal)
         self.type = "Plane"
 
     def ray_intersect(self, orig, dir):
-        denom = sum(d * n for d, n in zip(dir, self.normal))  
+        denom = productoPunto(dir, self.normal)
+        
 
         if math.isclose(denom, 0):
             return None
+        
 
-        num = sum((p - o) * n for p, o, n in zip(self.position, orig, self.normal))  
+        num = productoPunto([self.position[i] - orig[i] for i in range(3)], self.normal)
         t = num / denom
+
         if t < 0:
             return None
 
-        P = [o + d * t for o, d in zip(orig, dir)]  
+
+        P = [orig[i] + dir[i] * t for i in range(3)]
+
+
+        u = (P[0] - self.position[0]) * 0.1
+        v = (P[2] - self.position[2]) * 0.1
+
+
+        u = (u + 10) % 1.0
+        v = (v + 10) % 1.0
 
         return Intercept(
             point=P,
             normal=self.normal,
             distance=t,
-            texCoords=None,
+            texCoords=[u, v],
             rayDirection=dir,
             obj=self
         )
+
 
 
 class Disk(Plane):

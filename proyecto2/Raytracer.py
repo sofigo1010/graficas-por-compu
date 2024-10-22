@@ -77,7 +77,15 @@ boca = Disk(
 )
 rt.scene.append(boca)
 
-beige_material = Material(diffuse=[0.96, 0.87, 0.70], spec=32, Ks=0.3, matType=OPAQUE)
+sand_texture = Texture("textures/sand.bmp")
+beige_material = Material(
+    diffuse=[1.0, 0.75, 0.8], 
+    spec=32,
+    Ks=0.5,
+    matType=OPAQUE,
+    texture=sand_texture
+)
+
 sand_plane = Plane(
     position=[0, -6, -6], 
     normal=[0, 1, 0], 
@@ -123,7 +131,7 @@ starfish = Star(
 rt.scene.append(starfish)
 
 bottle_body = Cylinder(
-    position=[-1.5, -0.4, -5.5],
+    position=[-1.5, -0.6, -5.5],
     radius=0.1,
     height=0.5,
     material=transparent_material
@@ -131,7 +139,7 @@ bottle_body = Cylinder(
 rt.scene.append(bottle_body)
 
 bottle_cap = Hemisphere(
-    position=[-1.5, 0.1, -5.5],
+    position=[-1.5, -0.1, -5.5],
     radius=0.1,
     material=grey_material,
     orientation='up'
@@ -230,6 +238,143 @@ plant10 = Triangle(
     material=green_material
 )
 rt.scene.append(plant10)
+
+fish_texture = Texture("textures/fish2.bmp")
+fish_material_with_texture = Material(
+    diffuse=[1.0, 1.0, 1.0],  
+    spec=64,
+    Ks=0.3,
+    matType=OPAQUE,
+    texture=fish_texture
+)
+
+purple_material = Material(
+    diffuse=[0.5, 0, 0.5], 
+    spec=128, Ks=0.5, 
+    matType=OPAQUE)
+
+fish_body = Ellipsoid(
+    position=[-1.45, 0.5, -5.5],  
+    radii=[0.5, 0.3, 0.2],  
+    material=fish_material_with_texture
+)
+rt.scene.append(fish_body)
+
+
+fish_tail1 = Triangle(
+    v0=[-1.0, 0.5, -5.7],  
+    v1=[-0.8, 0.8, -5.7],
+    v2=[-1.0, 0.2, -5.7],
+    material=purple_material
+)
+rt.scene.append(fish_tail1)
+
+fish_tail2 = Triangle(
+    v0=[-1.0, 0.5, -5.7],  
+    v1=[-0.8, 0.2, -5.7],
+    v2=[-1.0, 0.8, -5.7],
+    material=purple_material
+)
+rt.scene.append(fish_tail2)
+
+
+fish_eye_white = Sphere(
+    position=[-1.8, 0.55, -5.35],  
+    radius=0.06, 
+    material=white_material
+)
+rt.scene.append(fish_eye_white)
+
+fish_eye_black = Sphere(
+    position=[-1.8, 0.55, -5.3], 
+    radius=0.03, 
+    material=black_material
+)
+rt.scene.append(fish_eye_black)
+
+
+pufferfish_yellow_material_texture = Texture("textures/fish3.bmp")
+pufferfish_yellow_material_with_texture = Material(
+    diffuse=[1.0, 1.0, 1.0],  
+    spec=64,
+    Ks=0.3,
+    matType=OPAQUE,
+    texture=pufferfish_yellow_material_texture
+)
+
+
+
+pufferfish_body = Sphere(
+    position=[0.6, 0.5, -5.4], 
+    radius=0.3,  
+    material=pufferfish_yellow_material_with_texture
+)
+rt.scene.append(pufferfish_body)
+
+
+pufferfish_fin1 = Triangle(
+    v0=[0.6, 0.65, -5.3],  
+    v1=[0.65, 0.75, -5.3],
+    v2=[0.55, 0.75, -5.3],
+    material=orange_material
+)
+rt.scene.append(pufferfish_fin1)
+
+pufferfish_fin2 = Triangle(
+    v0=[0.85, 0.5, -5.4],  
+    v1=[1.0, 0.6, -5.4],
+    v2=[0.85, 0.4, -5.4],
+    material=orange_material
+)
+rt.scene.append(pufferfish_fin2)
+
+pufferfish_fin3 = Triangle(
+    v0=[0.35, 0.5, -5.4],  
+    v1=[0.2, 0.6, -5.4],
+    v2=[0.35, 0.4, -5.4],
+    material=orange_material
+)
+rt.scene.append(pufferfish_fin3)
+
+
+eye_radius = 0.15  
+pupil_radius = 0.08  
+
+
+pufferfish_eye_white1 = Sphere(
+    position=[0.62, 0.55, -5.24],  
+    radius=eye_radius, 
+    material=white_material
+)
+rt.scene.append(pufferfish_eye_white1)
+
+pufferfish_eye_black1 = Sphere(
+    position=[0.55, 0.55, -5.15],  
+    radius=pupil_radius, 
+    material=black_material
+)
+rt.scene.append(pufferfish_eye_black1)
+
+
+pufferfish_eye_white2 = Sphere(
+    position=[0.55, 0.55, -5.25],  
+    radius=eye_radius, 
+    material=white_material
+)
+rt.scene.append(pufferfish_eye_white2)
+
+pufferfish_eye_black2 = Sphere(
+    position=[0.625, 0.55, -5.15],  
+    radius=pupil_radius, 
+    material=black_material
+)
+rt.scene.append(pufferfish_eye_black2)
+
+
+
+
+
+
 
 rt.Lights.append(AmbientLight(intensity=0.6))
 
