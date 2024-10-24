@@ -166,26 +166,26 @@ class AABB(Shape):
         if intercept == None:
             return None
 
+        # Calcular coordenadas de textura (u, v)
         u, v = 0, 0
+        abs_normal = [abs(val) for val in intercept.normal]
 
-        if abs(intercept.normal[0]) > 0:
+        if abs_normal[0] == max(abs_normal):
             # Mapear las uvs para el eje x, usando las coordenadas de Y y Z
             u = (intercept.point[1] - self.boundsMin[1]) / self.sizes[1]
             v = (intercept.point[2] - self.boundsMin[2]) / self.sizes[2]
-
-        elif abs(intercept.normal[1]) > 0:
+        elif abs_normal[1] == max(abs_normal):
             # Mapear las uvs para el eje y, usando las coordenadas de X y Z
             u = (intercept.point[0] - self.boundsMin[0]) / self.sizes[0]
             v = (intercept.point[2] - self.boundsMin[2]) / self.sizes[2]
-
-        elif abs(intercept.normal[2]) > 0:
+        elif abs_normal[2] == max(abs_normal):
             # Mapear las uvs para el eje z, usando las coordenadas de X y Y
             u = (intercept.point[0] - self.boundsMin[0]) / self.sizes[0]
             v = (intercept.point[1] - self.boundsMin[1]) / self.sizes[1]
-        
+
+        # Ajustar valores de u y v para asegurar que estén dentro del rango [0, 1]
         u = min(0.999, max(0, u))
         v = min(0.999, max(0, v))
-
 
         return Intercept(
             point=intercept.point,
@@ -195,6 +195,7 @@ class AABB(Shape):
             rayDirection=dir,
             obj=self
         )
+
 
 class Triangle(Shape):
     def __init__(self, v0, v1, v2, material):

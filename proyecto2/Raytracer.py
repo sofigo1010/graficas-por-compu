@@ -373,6 +373,77 @@ rt.scene.append(pufferfish_eye_black2)
 
 
 
+chest_texture = Texture("textures/chest.bmp")
+chest_with_texture = Material(
+    diffuse=[1.0, 1.0, 1.0],  
+    spec=64,
+    Ks=0.3,
+    matType=OPAQUE,
+    texture=chest_texture
+)
+
+cofre_cuerpo = AABB(
+    position=[-1.45, -1, -5.5],  
+    sizes=[0.8, 0.8, 0.8],  
+    material=chest_with_texture
+)
+rt.scene.append(cofre_cuerpo)
+
+
+
+
+blue_texture = Texture("textures/blued.bmp")
+blue_with_texture = Material(
+    diffuse=[1.0, 1.0, 1.0],  
+    spec=64,
+    Ks=0.3,
+    matType=OPAQUE,
+    texture=blue_texture
+)
+
+
+nuevo_pez_cuerpo = Hemisphere(
+    position=[-0.05, 1.25, -5.6],  
+    radius=0.4,  
+    material=blue_with_texture,
+    orientation='up'  
+)
+rt.scene.append(nuevo_pez_cuerpo)
+
+
+nuevo_pez_cola = Triangle(
+    v0=[-0.4, 1.3, -5.6],  
+    v1=[-0.8, 1.1, -5.6],  
+    v2=[-0.8, 1.5, -5.6],  
+    material=white_material
+)
+rt.scene.append(nuevo_pez_cola)
+
+
+nuevo_pez_ojo_blanco = Sphere(
+    position=[0.2, 1.4, -5.3], 
+    radius=0.06,  
+    material=white_material
+)
+rt.scene.append(nuevo_pez_ojo_blanco)
+
+nuevo_pez_ojo_negro = Sphere(
+    position=[0.22, 1.35, -4.98],  
+    radius=0.03,  
+    material=black_material
+)
+rt.scene.append(nuevo_pez_ojo_negro)
+
+
+nuevo_pez_aleta_dorsal = Triangle(
+    v0=[-0.1, 1.6, -5],  
+    v1=[0.0, 1.4, -5],  
+    v2=[0.1, 1.6, -5],  
+    material=white_material
+)
+rt.scene.append(nuevo_pez_aleta_dorsal)
+
+
 
 
 
