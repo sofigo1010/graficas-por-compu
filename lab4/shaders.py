@@ -311,7 +311,6 @@ void main()
     fragColor = vec4(finalColor * intensity, texColor.a);
 }
 '''
-
 disintegration_shader = '''
 #version 450 core
 
